@@ -52,6 +52,7 @@
 # @param xpack [Hash] Configuration items to export internal stats to a monitoring Elasticsearch cluster
 # @param extra_validate_options [String] Extra command line options to pass to the configuration validation command
 # @param autodiscover [Hash] Will be converted to YAML for the optional autodiscover section of the configuration (see documentation, and above)
+# @param cfg_append [Hash] Optional Variant[Hash, Array] Add custom params after everything
 class filebeat (
   String  $package_ensure                                             = $filebeat::params::package_ensure,
   Boolean $manage_package                                             = $filebeat::params::manage_package,
@@ -113,6 +114,7 @@ class filebeat (
   Optional[String] $registry_path                                     = $filebeat::params::registry_path,
   Optional[String] $registry_file_permissions                         = $filebeat::params::registry_file_permissions,
   Optional[String] $registry_flush                                    = $filebeat::params::registry_flush,
+  Optional[Variant[Hash, Array]] $cfg_append                          = undef,
 
 ) inherits filebeat::params {
 
