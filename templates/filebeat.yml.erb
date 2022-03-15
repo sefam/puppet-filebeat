@@ -624,3 +624,6 @@ logging.files:
   keepfiles: <%= @filebeat_config['logging']['files']['keepfiles'] %>
   <%- end -%>
 <%- end -%>
+
+# Additionals config
+<%= @filebeat_config['cfg_append'].to_yaml() %>

@@ -52,6 +52,7 @@ class filebeat::config {
       'processors'        => $filebeat::processors,
       'monitoring'        => $filebeat::monitoring,
       'setup'             => $setup,
+      'cfg_append'        => $filebeat::cfg_append,
     })
     # Add the 'xpack' section if supported (version >= 6.1.0) and not undef
     if $filebeat::xpack and versioncmp($filebeat::package_ensure, '6.1.0') >= 0 {
@@ -83,6 +84,7 @@ class filebeat::config {
       'logging'           => $filebeat::logging,
       'runoptions'        => $filebeat::run_options,
       'processors'        => $filebeat::processors,
+      'cfg_append'        => $filebeat::cfg_append,
     })
     # Add the 'modules' section if supported (version >= 5.2.0)
     if versioncmp($filebeat::package_ensure, '5.2.0') >= 0 {

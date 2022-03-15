@@ -54,6 +54,7 @@
 # @param extra_validate_options [String] Extra command line options to pass to the configuration validation command
 # @param autodiscover [Hash] Will be converted to YAML for the optional autodiscover section of the configuration (see documentation, and above)
 # @param overwrite_pipelines [Boolean] If set to true filebeat will overwrite (ingest) pipeline in Elasticsearch
+# @param cfg_append [Hash] Variant[Hash, Array] Add custom params after everything
 class filebeat (
   String  $package_ensure                                             = $filebeat::params::package_ensure,
   Boolean $manage_package                                             = $filebeat::params::manage_package,
@@ -117,6 +118,7 @@ class filebeat (
   Optional[String] $registry_file_permissions                         = $filebeat::params::registry_file_permissions,
   Optional[String] $registry_flush                                    = $filebeat::params::registry_flush,
   Boolean $overwrite_pipelines                                        = $filebeat::params::overwrite_pipelines,
+  Variant[Hash, Array] $cfg_append                                    = {},
 
 ) inherits filebeat::params {
 
