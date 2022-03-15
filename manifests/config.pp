@@ -18,7 +18,7 @@ class filebeat::config {
   }
 
   if versioncmp($major_version, '6') >= 0 {
-    $filebeat_config_temp = delete_undef_values({
+    $filebeat_config_temp = delete_undef_values(deep_merge({
       'name'              => $filebeat::beat_name,
       'tags'              => $filebeat::tags,
       'max_procs'         => $filebeat::max_procs,
@@ -51,7 +51,7 @@ class filebeat::config {
       'processors'        => $filebeat::processors,
       'monitoring'        => $filebeat::monitoring,
       'setup'             => $setup,
-    })
+    }, $filebeat::cfg_append))
     # Add the 'xpack' section if supported (version >= 6.1.0) and not undef
     if $filebeat::xpack and versioncmp($filebeat::package_ensure, '6.1.0') >= 0 {
       $filebeat_config = deep_merge($filebeat_config_temp, {'xpack' => $filebeat::xpack})
@@ -60,7 +60,7 @@ class filebeat::config {
       $filebeat_config = $filebeat_config_temp
     }
   } else {
-    $filebeat_config_temp = delete_undef_values({
+    $filebeat_config_temp = delete_undef_values(deep_merge({
       'shutdown_timeout'  => $filebeat::shutdown_timeout,
       'name'              => $filebeat::beat_name,
       'tags'              => $filebeat::tags,
@@ -81,7 +81,7 @@ class filebeat::config {
       'logging'           => $filebeat::logging,
       'runoptions'        => $filebeat::run_options,
       'processors'        => $filebeat::processors,
-    })
+    }, $filebeat::cfg_append))
     # Add the 'modules' section if supported (version >= 5.2.0)
     if versioncmp($filebeat::package_ensure, '5.2.0') >= 0 {
       $filebeat_config = deep_merge($filebeat_config_temp, {'modules' => $filebeat::modules})
